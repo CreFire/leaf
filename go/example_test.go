@@ -2,7 +2,7 @@ package g_test
 
 import (
 	"fmt"
-	"github.com/name5566/leaf/go"
+	g "github.com/leaf/go"
 	"time"
 )
 
@@ -13,7 +13,7 @@ func Example() {
 	var res int
 	d.Go(func() {
 		fmt.Println("1 + 1 = ?")
-		res = 1 + 1
+		res = 1 + 2
 	}, func() {
 		fmt.Println(res)
 	})
