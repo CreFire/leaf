@@ -1,8 +1,8 @@
 package module
 
 import (
-	"github.com/name5566/leaf/conf"
-	"github.com/name5566/leaf/log"
+	"github.com/CreFire/leaf/conf"
+	"github.com/CreFire/leaf/log"
 	"runtime"
 	"sync"
 )

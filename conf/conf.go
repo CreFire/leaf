@@ -4,13 +4,16 @@ var (
 	LenStackBuf = 4096
 
 	// log
-	LogLevel string
-	LogPath  string
-	LogFlag  int
+	PrintLevel string
+	LogLevel   string
+	LogPath    string
+	LogPrint   bool
+	LogFileOne bool
+	LogFlag    int
 
 	// console
 	ConsolePort   int
-	ConsolePrompt string = "Leaf# "
+	ConsolePrompt string = "Server# "
 	ProfilePath   string
 
 	// cluster
