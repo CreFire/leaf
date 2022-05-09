@@ -12,7 +12,8 @@ import (
 type Gate struct {
 	MaxConnNum      int
 	PendingWriteNum int
-	MaxMsgLen       uint32
+	MaxMsgLen       int32
+	MinMsgLen       int32
 	Processor       network.Processor
 	AgentChanRPC    *chanrpc.Server
 

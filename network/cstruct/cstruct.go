@@ -4,7 +4,10 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"github.com/CreFire/leaf/util/cstruct-go"
+	"google.golang.org/protobuf/proto"
 	"math"
+
 	"reflect"
 
 	"github.com/CreFire/leaf/chanrpc"
