@@ -45,13 +45,19 @@ func (this *ClusterClient) createPool(addr string, options ...redis.DialOption) 
 				return nil, err
 			}
 			if this.option.Password != "" {
-				if _, err := c.Do("AUTH", this.option.Password); err != nil {
-					c.Close()
+				if _, err = c.Do("AUTH", this.option.Password); err != nil {
+					err = c.Close()
+					if err != nil {
+						return nil, err
+					}
 					return nil, err
 				}
 			}
-			if _, err := c.Do("SELECT", this.option.DBIndex); err != nil {
-				c.Close()
+			if _, err = c.Do("SELECT", this.option.DBIndex); err != nil {
+				err = c.Close()
+				if err != nil {
+					return nil, err
+				}
 				return nil, err
 			}
 			return c, nil

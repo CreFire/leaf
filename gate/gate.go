@@ -4,6 +4,7 @@ import (
 	"github.com/CreFire/leaf/chanrpc"
 	"github.com/CreFire/leaf/log"
 	"github.com/CreFire/leaf/network"
+	"github.com/CreFire/leaf/network/cstruct"
 	"net"
 	"reflect"
 	"time"
@@ -12,8 +13,8 @@ import (
 type Gate struct {
 	MaxConnNum      int
 	PendingWriteNum int
-	MaxMsgLen       int32
-	MinMsgLen       int32
+	MaxMsgLen       uint32
+	MinMsgLen       uint32
 	Processor       network.Processor
 	AgentChanRPC    *chanrpc.Server
 
@@ -104,7 +105,8 @@ func (a *agent) Run() {
 				log.Debug("unmarshal message error: %v", err)
 				break
 			}
-			err = a.gate.Processor.Route(msg, a)
+			ms := msg.(*cstruct.RecvMsg)
+			err = a.gate.Processor.Route(ms, a)
 			if err != nil {
 				log.Debug("route message error: %v", err)
 				break
