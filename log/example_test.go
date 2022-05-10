@@ -10,7 +10,7 @@ package log_test
 //	name := "Leaf"
 //
 //	log.Debug("My name is %v", name)
-//	log.Release("My name is %v", name)
+//	log.Info("My name is %v", name)
 //	log.Error("My name is %v", name)
 //	// log.Fatal("My name is %v", name)
 //
@@ -26,5 +26,5 @@ package log_test
 //	log.Export(logger)
 //
 //	log.Debug("will not print")
-//	log.Release("My name is %v", name)
+//	log.Info("My name is %v", name)
 //}

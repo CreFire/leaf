@@ -3,6 +3,7 @@ package mongodb_test
 import (
 	"fmt"
 	"github.com/CreFire/leaf/db/mongodb"
+	"gopkg.in/mgo.v2"
 )
 
 func Example() {

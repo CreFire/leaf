@@ -21,8 +21,8 @@ type TCPClient struct {
 
 	// msg parser
 	LenMsgLen    int
-	MinMsgLen    uint32
-	MaxMsgLen    uint32
+	MinMsgLen    int32
+	MaxMsgLen    int32
 	LittleEndian bool
 	msgParser    *MsgParser
 }
@@ -42,15 +42,15 @@ func (client *TCPClient) init() {
 
 	if client.ConnNum <= 0 {
 		client.ConnNum = 1
-		log.Release("invalid ConnNum, reset to %v", client.ConnNum)
+		log.Info("invalid ConnNum, reset to %v", client.ConnNum)
 	}
 	if client.ConnectInterval <= 0 {
 		client.ConnectInterval = 3 * time.Second
-		log.Release("invalid ConnectInterval, reset to %v", client.ConnectInterval)
+		log.Info("invalid ConnectInterval, reset to %v", client.ConnectInterval)
 	}
 	if client.PendingWriteNum <= 0 {
 		client.PendingWriteNum = 100
-		log.Release("invalid PendingWriteNum, reset to %v", client.PendingWriteNum)
+		log.Info("invalid PendingWriteNum, reset to %v", client.PendingWriteNum)
 	}
 	if client.NewAgent == nil {
 		log.Fatal("NewAgent must not be nil")
@@ -76,7 +76,7 @@ func (client *TCPClient) dial() net.Conn {
 			return conn
 		}
 
-		log.Release("connect to %v error: %v", client.Addr, err)
+		log.Info("connect to %v error: %v", client.Addr, err)
 		time.Sleep(client.ConnectInterval)
 		continue
 	}
