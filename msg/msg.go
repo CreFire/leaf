@@ -4,10 +4,10 @@ import (
 	"reflect"
 
 	"github.com/CreFire/leaf/chanrpc"
-	"github.com/CreFire/leaf/log"
 	"github.com/CreFire/leaf/module"
 	"github.com/CreFire/leaf/network"
 	"github.com/CreFire/leaf/network/cstruct"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -24,8 +24,8 @@ func GetMsgData(recv *cstruct.RecvMsg, mainCmdID uint16, subCmdID uint16, msg in
 		return nil
 	}
 
-	result, err := MsgParser.Pack(data...)
-	if err != nil {
+	result, err2 := MsgParser.Pack(data...)
+	if err2 != nil {
 		log.Error("GetMsgData pack message error: %v", err)
 		return nil
 	}

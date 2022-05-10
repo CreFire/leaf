@@ -12,8 +12,8 @@ import (
 // --------------
 type MsgParser struct {
 	lenMsgLen    int
-	minMsgLen    uint32
-	maxMsgLen    uint32
+	minMsgLen    int32
+	maxMsgLen    int32
 	littleEndian bool
 }
 
@@ -28,7 +28,7 @@ func NewMsgParser() *MsgParser {
 }
 
 // It's dangerous to call the method on reading or writing
-func (p *MsgParser) SetMsgLen(lenMsgLen int, minMsgLen uint32, maxMsgLen uint32) {
+func (p *MsgParser) SetMsgLen(lenMsgLen int, minMsgLen int32, maxMsgLen int32) {
 	if lenMsgLen == 1 || lenMsgLen == 2 || lenMsgLen == 4 {
 		p.lenMsgLen = lenMsgLen
 	}
@@ -39,14 +39,14 @@ func (p *MsgParser) SetMsgLen(lenMsgLen int, minMsgLen uint32, maxMsgLen uint32)
 		p.maxMsgLen = maxMsgLen
 	}
 
-	var max uint32
+	var max int32
 	switch p.lenMsgLen {
 	case 1:
-		max = math.MaxUint8
+		max = math.MaxInt8
 	case 2:
-		max = math.MaxUint16
+		max = math.MaxInt16
 	case 4:
-		max = math.MaxUint32
+		max = math.MaxInt32
 	}
 	if p.minMsgLen > max {
 		p.minMsgLen = max
@@ -91,9 +91,9 @@ func (p *MsgParser) Read(conn *TCPConn) ([]byte, error) {
 	}
 
 	// check len
-	if msgLen > p.maxMsgLen {
+	if msgLen > uint32(p.maxMsgLen) {
 		return nil, errors.New("message too long")
-	} else if msgLen < p.minMsgLen {
+	} else if msgLen < uint32(p.minMsgLen) {
 		return nil, errors.New("message too short")
 	}
 
@@ -115,9 +115,9 @@ func (p *MsgParser) Write(conn *TCPConn, args ...[]byte) error {
 	}
 
 	// check len
-	if msgLen > p.maxMsgLen {
+	if msgLen > uint32(p.maxMsgLen) {
 		return errors.New("message too long")
-	} else if msgLen < p.minMsgLen {
+	} else if msgLen < uint32(p.minMsgLen) {
 		return errors.New("message too short")
 	}
 
@@ -151,4 +151,8 @@ func (p *MsgParser) Write(conn *TCPConn, args ...[]byte) error {
 	conn.Write(msg)
 
 	return nil
+}
+
+func (p *MsgParser) Pack(data ...[]byte) ([]byte, error) {
+	return nil, nil
 }

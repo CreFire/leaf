@@ -2,8 +2,8 @@ package network
 
 import (
 	"errors"
-	"github.com/CreFire/leaf/log"
 	"github.com/gorilla/websocket"
+	log "github.com/sirupsen/logrus"
 	"net"
 	"sync"
 )
@@ -14,11 +14,11 @@ type WSConn struct {
 	sync.Mutex
 	conn      *websocket.Conn
 	writeChan chan []byte
-	maxMsgLen uint32
+	maxMsgLen int32
 	closeFlag bool
 }
 
-func newWSConn(conn *websocket.Conn, pendingWriteNum int, maxMsgLen uint32) *WSConn {
+func newWSConn(conn *websocket.Conn, pendingWriteNum int, maxMsgLen int32) *WSConn {
 	wsConn := new(WSConn)
 	wsConn.conn = conn
 	wsConn.writeChan = make(chan []byte, pendingWriteNum)
@@ -106,9 +106,9 @@ func (wsConn *WSConn) WriteMsg(args ...[]byte) error {
 	}
 
 	// get len
-	var msgLen uint32
+	var msgLen int32
 	for i := 0; i < len(args); i++ {
-		msgLen += uint32(len(args[i]))
+		msgLen += int32(len(args[i]))
 	}
 
 	// check len

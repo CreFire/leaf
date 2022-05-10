@@ -2,7 +2,7 @@ package g_test
 
 import (
 	"fmt"
-	g "github.com/leaf/go"
+	g "github.com/CreFire/leaf/go"
 	"time"
 )
 

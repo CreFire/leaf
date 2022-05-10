@@ -2,8 +2,8 @@ package network
 
 import (
 	"crypto/tls"
-	"github.com/CreFire/leaf/log"
 	"github.com/gorilla/websocket"
+	log "github.com/sirupsen/logrus"
 	"net"
 	"net/http"
 	"sync"
@@ -14,7 +14,7 @@ type WSServer struct {
 	Addr            string
 	MaxConnNum      int
 	PendingWriteNum int
-	MaxMsgLen       uint32
+	MaxMsgLen       int32
 	HTTPTimeout     time.Duration
 	CertFile        string
 	KeyFile         string
@@ -26,7 +26,7 @@ type WSServer struct {
 type WSHandler struct {
 	maxConnNum      int
 	pendingWriteNum int
-	maxMsgLen       uint32
+	maxMsgLen       int32
 	newAgent        func(*WSConn) Agent
 	upgrader        websocket.Upgrader
 	conns           WebsocketConnSet

@@ -6,7 +6,7 @@ type Processor interface {
 	// Route must goroutine safe
 	Route(msg *cstruct.RecvMsg, userData interface{}) error
 	// Unmarshal must goroutine safe
-	Unmarshal(data []byte) (interface{}, error)
+	Unmarshal(data []byte) (*cstruct.RecvMsg, error)
 	// Marshal must goroutine safe
-	Marshal(msg interface{}) ([][]byte, error)
+	Marshal(recv *cstruct.RecvMsg, mainCmdID uint16, subCmdID uint16, msg interface{}) ([][]byte, error)
 }

@@ -1,8 +1,8 @@
 package network
 
 import (
-	"github.com/CreFire/leaf/log"
 	"github.com/gorilla/websocket"
+	log "github.com/sirupsen/logrus"
 	"sync"
 	"time"
 )

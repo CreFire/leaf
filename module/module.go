@@ -2,7 +2,7 @@ package module
 
 import (
 	"github.com/CreFire/leaf/conf"
-	"github.com/CreFire/leaf/log"
+	log "github.com/sirupsen/logrus"
 	"runtime"
 	"sync"
 )

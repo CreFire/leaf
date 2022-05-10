@@ -62,6 +62,6 @@ func Example() {
 	// 6
 	// 4
 	// 6
-	// name5566
+	// CreFire
 	// 6
 }

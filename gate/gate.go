@@ -2,9 +2,9 @@ package gate
 
 import (
 	"github.com/CreFire/leaf/chanrpc"
-	"github.com/CreFire/leaf/log"
 	"github.com/CreFire/leaf/network"
 	"github.com/CreFire/leaf/network/cstruct"
+	log "github.com/sirupsen/logrus"
 	"net"
 	"reflect"
 	"time"
@@ -13,8 +13,8 @@ import (
 type Gate struct {
 	MaxConnNum      int
 	PendingWriteNum int
-	MaxMsgLen       uint32
-	MinMsgLen       uint32
+	MaxMsgLen       int32
+	MinMsgLen       int32
 	Processor       network.Processor
 	AgentChanRPC    *chanrpc.Server
 
@@ -100,13 +100,12 @@ func (a *agent) Run() {
 		}
 
 		if a.gate.Processor != nil {
-			msg, err := a.gate.Processor.Unmarshal(data)
-			if err != nil {
+			msg, err2 := a.gate.Processor.Unmarshal(data)
+			if err2 != nil {
 				log.Debug("unmarshal message error: %v", err)
 				break
 			}
-			ms := msg.(*cstruct.RecvMsg)
-			err = a.gate.Processor.Route(ms, a)
+			err = a.gate.Processor.Route(msg, a)
 			if err != nil {
 				log.Debug("route message error: %v", err)
 				break
@@ -124,16 +123,17 @@ func (a *agent) OnClose() {
 	}
 }
 
-func (a *agent) WriteMsg(msg interface{}) {
+func (a *agent) WriteMsg(recv *cstruct.RecvMsg, mainCmdID uint16, subCmdID uint16, msg interface{}) {
 	if a.gate.Processor != nil {
-		data, err := a.gate.Processor.Marshal(msg)
+		data, err := a.gate.Processor.Marshal(recv, mainCmdID, subCmdID, msg)
 		if err != nil {
 			log.Error("marshal message %v error: %v", reflect.TypeOf(msg), err)
 			return
 		}
 		err = a.conn.WriteMsg(data...)
+		log.Debug("sendMsg : [%d,%d] [%d,%d] id[%d]", recv.MsgType, recv.RpcCallId, mainCmdID, subCmdID, cstruct.MakeDWORD(mainCmdID, subCmdID))
 		if err != nil {
-			log.Error("write message %v error: %v", reflect.TypeOf(msg), err)
+			log.Error("write message : [%d,%d] [%d,%d] id[%d] %v error: %v", recv.MsgType, recv.RpcCallId, mainCmdID, subCmdID, cstruct.MakeDWORD(mainCmdID, subCmdID), reflect.TypeOf(msg), err)
 		}
 	}
 }

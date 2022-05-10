@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/CreFire/leaf/chanrpc"
-	"github.com/CreFire/leaf/log"
+	log "github.com/sirupsen/logrus"
 	"reflect"
 )
 

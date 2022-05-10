@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/CreFire/leaf/chanrpc"
-	"github.com/CreFire/leaf/log"
 	"github.com/golang/protobuf/proto"
+	log "github.com/sirupsen/logrus"
 	"math"
 	"reflect"
 )

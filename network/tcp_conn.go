@@ -1,7 +1,7 @@
 package network
 
 import (
-	"github.com/CreFire/leaf/log"
+	log "github.com/sirupsen/logrus"
 	"net"
 	"sync"
 )

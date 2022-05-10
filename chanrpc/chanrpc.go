@@ -4,11 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"github.com/CreFire/leaf/conf"
-	"github.com/CreFire/leaf/log"
+	log "github.com/sirupsen/logrus"
 	"runtime"
 )
 
-// one server per goroutine (goroutine not safe)
+// Server one server per goroutine (goroutine not safe)
 // one client per goroutine (goroutine not safe)
 type Server struct {
 	// id -> function

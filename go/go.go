@@ -3,9 +3,12 @@ package g
 import (
 	"container/list"
 	"github.com/CreFire/leaf/conf"
-	"github.com/CreFire/leaf/log"
 	"runtime"
 	"sync"
+)
+
+import (
+	log "github.com/sirupsen/logrus"
 )
 
 // Go one Go per goroutine (goroutine not safe)

@@ -1,7 +1,7 @@
 package network
 
 import (
-	"github.com/CreFire/leaf/log"
+	log "github.com/sirupsen/logrus"
 	"net"
 	"sync"
 	"time"
@@ -20,8 +20,8 @@ type TCPServer struct {
 
 	// msg parser
 	LenMsgLen    int
-	MinMsgLen    uint32
-	MaxMsgLen    uint32
+	MinMsgLen    int32
+	MaxMsgLen    int32
 	LittleEndian bool
 	msgParser    *MsgParser
 }
@@ -39,11 +39,11 @@ func (server *TCPServer) init() {
 
 	if server.MaxConnNum <= 0 {
 		server.MaxConnNum = 100
-		log.Release("invalid MaxConnNum, reset to %v", server.MaxConnNum)
+		log.Info("invalid MaxConnNum, reset to %v", server.MaxConnNum)
 	}
 	if server.PendingWriteNum <= 0 {
 		server.PendingWriteNum = 100
-		log.Release("invalid PendingWriteNum, reset to %v", server.PendingWriteNum)
+		log.Info("invalid PendingWriteNum, reset to %v", server.PendingWriteNum)
 	}
 	if server.NewAgent == nil {
 		log.Fatal("NewAgent must not be nil")
@@ -76,7 +76,7 @@ func (server *TCPServer) run() {
 				if max := 1 * time.Second; tempDelay > max {
 					tempDelay = max
 				}
-				log.Release("accept error: %v; retrying in %v", err, tempDelay)
+				log.Info("accept error: %v; retrying in %v", err, tempDelay)
 				time.Sleep(tempDelay)
 				continue
 			}

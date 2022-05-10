@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/CreFire/leaf/chanrpc"
 	"github.com/CreFire/leaf/conf"
-	"github.com/CreFire/leaf/log"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"path"
 	"runtime/pprof"

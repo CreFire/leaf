@@ -5,7 +5,7 @@ var (
 
 	// log
 	PrintLevel string
-	LogLevel   string
+	LogLevel   uint32
 	LogPath    string
 	LogPrint   bool
 	LogFileOne bool

@@ -11,7 +11,7 @@ import (
 	"reflect"
 
 	"github.com/CreFire/leaf/chanrpc"
-	"github.com/CreFire/leaf/log"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
